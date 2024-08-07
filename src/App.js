@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { connectWalletToSite, getWalletAddress } from "./utils/wallet";
+import { getWalletAddress, signTransaction } from "./utils/wallet";
 
 function App() {
 	const [walletAddress, setWalletAddress] = useState();
 
 	async function connect() {
-		const connected = await connectWalletToSite();
-		if (connected) {
-			const address = await getWalletAddress();
-			setWalletAddress(address);
-		}
+		const address = await getWalletAddress()
+		setWalletAddress(address);
+		signTransaction();
 	}
 
 	useEffect(() => {
