@@ -79,9 +79,16 @@ export async function getWalletAddress() {
 	try {
 		let address =
 			(await window.ethereum.selectedAddress) ||
-			window.ethereum.address;
+			(await window.ethereum.address);
 		return address;
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+export async function getWalletAddressNew() {
+	const accounts = await window.ethereum.request({
+		method: "eth_accounts",
+	});
+	return accounts;
 }
