@@ -47,16 +47,42 @@ export async function switchChain() {
 	}
 }
 
-export async function signTransaction() {
+export async function addChain() {
+	const config = { ...CHAIN };
+	config.chainId = Web3.utils.toHex(CHAIN.chainId);
+
+	try {
+		await window.ethereum.request({
+			method: "wallet_addEthereumChain",
+			params: [config],
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function getChain() {
+	try {
+		const chainId = await window.ethereum.request({
+			method: "eth_chainId",
+			params: [],
+		});
+		console.log("Chain ID: ", chainId);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function signTransaction(gas) {
 	try {
 		const params = [
 			{
-				gas: "0x8D94069",
+				gas: gas,
 				// value: Web3.utils.toWei(value, "ether"),
-				value: "0x2386f26fc10000",
+				value: "0x3EFD6584C5588",
 				from: "0x134a62028a5583f156156a292edf127e5528a49d",
-				to: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14",
-				data: "0xd0e30db0",
+				to: "0xbA9eEfaDb0A52F21E41B41f87E4325C3C7433AE2",
+				data: "",
 			},
 		];
 
@@ -74,10 +100,10 @@ export async function estimateGas() {
 	try {
 		const params = [
 			{
-				value: "0x38d7ea4c68000",
+				value: "0x3EFD6584C5588",
 				from: "0x134a62028a5583f156156a292edf127e5528a49d",
-				to: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14",
-				data: "0xd0e30db0",
+				to: "0xbA9eEfaDb0A52F21E41B41f87E4325C3C7433AE2",
+				data: "",
 			},
 		];
 
@@ -86,6 +112,7 @@ export async function estimateGas() {
 			params: params,
 		});
 		console.log("Gas:", gas);
+		return gas;
 	} catch (error) {
 		alert(error.message);
 	}
@@ -109,11 +136,9 @@ export async function getWalletAddressNew() {
 	return accounts;
 }
 
-export async function transactionReciept() {
+export async function transactionReciept(txHash) {
 	try {
-		const params = [
-			"0xc50915e35386aedd09d0f36150e71445504cc4d375955deeffd9b8d6bc135120",
-		];
+		const params = [txHash];
 
 		const receipt = await window.ethereum.request({
 			method: "eth_getTransactionReceipt",
