@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getWalletAddressNew } from "./utils/wallet";
+import { getWalletAddressNew, transactionReciept } from "./utils/wallet";
 
 function App() {
 	const [walletAddress, setWalletAddress] = useState();
@@ -12,6 +12,7 @@ function App() {
 		setWalletAddress(address[0]);
 		// signTransaction();
 		// estimateGas();
+		transactionReciept();
 	}
 
 	useEffect(() => {

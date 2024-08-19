@@ -108,3 +108,19 @@ export async function getWalletAddressNew() {
 	});
 	return accounts;
 }
+
+export async function transactionReciept() {
+	try {
+		const params = [
+			"0xc50915e35386aedd09d0f36150e71445504cc4d375955deeffd9b8d6bc135120",
+		];
+
+		const receipt = await window.ethereum.request({
+			method: "eth_getTransactionReceipt",
+			params: params,
+		});
+		console.log("Transaction Receipt:", receipt);
+	} catch (error) {
+		alert(error.message);
+	}
+}
