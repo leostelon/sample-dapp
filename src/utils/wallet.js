@@ -49,19 +49,14 @@ export async function switchChain() {
 
 export async function signTransaction() {
 	try {
-		const accounts = await window.ethereum.request({
-			method: "eth_requestAccounts",
-		});
-		const senderAddress = accounts[0];
-		const recipientAddress = "0x7205c634fd4f68b6914df94c2e5b350da134ff09";
-		const value = "0.1";
-
 		const params = [
 			{
-				from: senderAddress,
-				to: recipientAddress,
-				value: Web3.utils.toWei(value, "ether"),
-				gas: "21000",
+				gas: "0x8D94069",
+				// value: Web3.utils.toWei(value, "ether"),
+				value: "0x2386f26fc10000",
+				from: "0x134a62028a5583f156156a292edf127e5528a49d",
+				to: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14",
+				data: "0xd0e30db0",
 			},
 		];
 
@@ -70,6 +65,27 @@ export async function signTransaction() {
 			params: params,
 		});
 		console.log("Transaction hash:", txHash);
+	} catch (error) {
+		alert(error.message);
+	}
+}
+
+export async function estimateGas() {
+	try {
+		const params = [
+			{
+				value: "0x38d7ea4c68000",
+				from: "0x134a62028a5583f156156a292edf127e5528a49d",
+				to: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14",
+				data: "0xd0e30db0",
+			},
+		];
+
+		const gas = await window.ethereum.request({
+			method: "eth_estimateGas",
+			params: params,
+		});
+		console.log("Gas:", gas);
 	} catch (error) {
 		alert(error.message);
 	}
