@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getWalletAddressNew, transactionReciept } from "./utils/wallet";
+import {
+	estimateGas,
+	evmCall,
+	getChain,
+	getWalletAddressNew,
+	signTransaction,
+	switchChain,
+	transactionReciept,
+} from "./utils/wallet";
 
 function App() {
 	const [walletAddress, setWalletAddress] = useState();
@@ -8,11 +16,15 @@ function App() {
 	async function connect() {
 		// const address = await getWalletAddress();
 		// setWalletAddress(address);
-		const address = await getWalletAddressNew();
-		setWalletAddress(address[0]);
-		// signTransaction();
-		// estimateGas();
-		transactionReciept();
+		evmCall();
+		return;
+		// Transaction
+		// const address = await getWalletAddressNew();
+		// setWalletAddress(address[0]);
+		// const gas = await estimateGas();
+		// if (!gas || gas === "") return;
+		// const tx = await signTransaction(gas);
+		// if (tx) transactionReciept(tx);
 	}
 
 	useEffect(() => {

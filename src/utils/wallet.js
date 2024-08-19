@@ -149,3 +149,24 @@ export async function transactionReciept(txHash) {
 		alert(error.message);
 	}
 }
+
+export async function evmCall() {
+	try {
+		const params = [
+			{
+				from: "0x134a62028a5583f156156a292edf127e5528a49d",
+				to: "0x92bcccb6c8c199aaca38408621e38ab6dbfa00b5",
+				data: "0xade4459700000000000000000000000000000000000000000000000000000000000000600000000000000000000000000d500b1d8e8ef31e21c99d1db9a6444d3adf1270000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000010000000000000000000000003c499c542cef5e3811e1192ce70d8cc03d5c3359",
+			},
+			"latest",
+		];
+
+		const receipt = await window.ethereum.request({
+			method: "eth_call",
+			params: params,
+		});
+		console.log("evm_call data: ", receipt);
+	} catch (error) {
+		alert(error.message);
+	}
+}
