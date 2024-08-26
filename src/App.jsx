@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import {
-	estimateGas,
-	evmCall,
-	getChain,
-	getWalletAddressNew,
-	signTransaction,
-	switchChain,
-	transactionReciept,
-} from "./utils/wallet";
+import { getTxByHash } from "./utils/wallet";
 
 function App() {
 	const [walletAddress, setWalletAddress] = useState();
@@ -16,8 +8,13 @@ function App() {
 	async function connect() {
 		// const address = await getWalletAddress();
 		// setWalletAddress(address);
-		evmCall();
-		return;
+		// switchChain();
+		// ethGasPrice();
+		// console.log("data sent");
+		// const message = await window.AndroidInterface.showToast("New Message");
+		// console.log(message);
+		// alert(message);
+		// return;
 		// Transaction
 		// const address = await getWalletAddressNew();
 		// setWalletAddress(address[0]);
@@ -25,10 +22,12 @@ function App() {
 		// if (!gas || gas === "") return;
 		// const tx = await signTransaction(gas);
 		// if (tx) transactionReciept(tx);
+		const txData = await getTxByHash();
 	}
 
 	useEffect(() => {
 		connect();
+		console.log("Entering");
 	}, []);
 
 	return (
