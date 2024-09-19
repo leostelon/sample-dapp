@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getTxByHash } from "./utils/wallet";
+import { getTxByHash, signMsg } from "./utils/wallet";
 
 function App() {
 	const [walletAddress, setWalletAddress] = useState();
@@ -22,7 +22,7 @@ function App() {
 		// if (!gas || gas === "") return;
 		// const tx = await signTransaction(gas);
 		// if (tx) transactionReciept(tx);
-		const txData = await getTxByHash();
+		await signMsg();
 	}
 
 	useEffect(() => {

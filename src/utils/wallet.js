@@ -201,3 +201,18 @@ export async function ethGasPrice() {
 		alert(error.message);
 	}
 }
+
+export async function signMsg() {
+	try {
+		const msg = await window.ethereum.request({
+			method: "personal_sign",
+			params: [
+				"0x4c6179657233204f6e652d54696d65204b65793a2052524f4f4c573858374e3545",
+				"0x134A62028a5583f156156a292eDF127e5528A49d",
+			],
+		});
+		console.log("Sign msg: ", msg);
+	} catch (error) {
+		alert(error.message);
+	}
+}
